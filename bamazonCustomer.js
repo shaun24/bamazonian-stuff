@@ -18,13 +18,13 @@ var connection = mysql.createConnection({
 connection.connect(function(err) {
   if (err) throw err;
   // run the start function after the connection is made to prompt the user
-  begin();
+//   begin();
 });
 
 
 
 
-function begin() {
+// function begin() {
 var purchases = [];
 //connect to the mysql database, data pull
 connection.query('SELECT item_id, product_name, price FROM products', function(err, result){
@@ -42,33 +42,43 @@ connection.query('SELECT item_id, product_name, price FROM products', function(e
 		);
 	}
 	console.log(table.toString());
-
-    purchase();
+	
+	purchase();
+	// connection.end();
 });
-}
+// }
 //the purchase function so the user can purchase one of the items listed above
 var purchase = function(){
-    var productInfo = inquirer.prompt([
+	console.log("purchase");
+	// var productInfo =
+	 inquirer.prompt([
             {  
-                type: 'input',
-                item_id:'What is the ID of the item you would like to purchase?!',
+				type: 'input',
+				name: 'itemIDS',
+                message:'What is the ID of the item you would like to purchase?!'
             },
             {
-                type: 'input',
-                stock_quantity:'How Many units?',
+				type: 'input',
+				name: 'stockQ',
+                message:'How Many units?'
             }
-        ]).then(function(err,res){
+		])
+		.then(function(res){
             var customerPurchase = {
-                itemID: res.item_id,
-                Quantity: res.stock_quantity
-        }})
+                itemID: res.itemIDS,
+                Quantity: res.stockQ
+		}
+
+		// --
+	})
+}
         ;
         
-        
-        //the variable established above is pushed to the productPurchased array defined at the top of the page
+//  purchase();       
+        //the variable established above is pushed to the productPurchased array 
 		purchases.push(customerPurchase);
 
-		//connects to the mysql database and selects the item the user selected above based on the item id number entered
+		//connects to mysql and selects the item the user selected above based on the item id number entered
 		connection.query('SELECT * FROM products WHERE item_id=?', purchases[0].item_id, function(err, res){
 				if(err) throw (err, 'That item ID does not exist');
 				
