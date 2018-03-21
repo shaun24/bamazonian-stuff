@@ -68,15 +68,16 @@ var purchase = function(){
                 itemID: res.itemIDS,
                 Quantity: res.stockQ
 		}
-
-		// --
+		purchases.push(customerPurchase);
+		newFunction();
 	})
 }
         ;
         
-//  purchase();       
+//  purchase();   
+function newFunction(){    
         //the variable established above is pushed to the productPurchased array 
-		purchases.push(customerPurchase);
+		// purchases.push(customerPurchase);
 
 		//connects to mysql and selects the item the user selected above based on the item id number entered
 		connection.query('SELECT * FROM products WHERE item_id=?', purchases[0].item_id, function(err, res){
@@ -101,7 +102,7 @@ var purchase = function(){
 						if(err) throw err;
 						console.log('Problem ', err);
 						console.log('');
-						console.log(colors.cyan('Your order has been processed.  Thank you for shopping with us!'));
+						console.log('Your order has been processed.  Thank you for shopping with us!');
 						console.log('');
 
 						connection.end();
