@@ -45,6 +45,8 @@ connection.query('SELECT item_id, product_name, price, stock_quantity FROM produ
 	
 	purchase();
 	// connection.end();
+	// newFunction();
+
 });
 // }
 //the purchase function so the user can purchase one of the items listed above
@@ -69,18 +71,19 @@ var purchase = function(){
                 Quantity: res.stockQ
 		}
 		purchases.push(customerPurchase);
-		newFunction();
+		// newFunction();
 	})
-};
+// };
 
-console.log(purchases)        
+// console.log(purchase)        
 //  purchase();   
 function newFunction(){    
         //the variable established above is pushed to the productPurchased array 
 		// purchases.push(customerPurchase);
-
+console.log(purchases.itemID)
+console.log(purchases[0].itemID)
 		//connects to mysql and selects the item the user selected above based on the item id number entered
-		connection.query('SELECT * FROM products WHERE item_id=?', purchases[0].item_id, function(err, res){
+		connection.query('SELECT * FROM products WHERE item_id=?', purchases[0].itemID, function(err, res){
 				if(err) throw (err, 'That item ID does not exist');
 				
 
@@ -112,9 +115,9 @@ function newFunction(){
 
 		})
 	}
-
-;
-
+// newFunction();
+};
+// newFunction();
 // console.log(purchase[0].item_id)
 // console.log(purchases[0].itemID)
 
