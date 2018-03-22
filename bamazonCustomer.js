@@ -27,18 +27,18 @@ connection.connect(function(err) {
 // function begin() {
 var purchases = [];
 //connect to the mysql database, data pull
-connection.query('SELECT item_id, product_name, price FROM products', function(err, result){
+connection.query('SELECT item_id, product_name, price, stock_quantity FROM products', function(err, result){
     if(err) throw(err);
     
 
 	var table = new Table({
-		head: ['Item Id#', 'Product Name', 'Price'],
+		head: ['Item Id#', 'Product Name', 'Price', 'Quantity'],
 	});
 
 	//loops through each item in the mysql database and pushes that information into a new row in the table
 	for(var i = 0; i < result.length; i++){
 		table.push(
-			[result[i].item_id, result[i].product_name, result[i].price]
+			[result[i].item_id, result[i].product_name, result[i].price, result[i].stock_quantity]
 		);
 	}
 	console.log(table.toString());
@@ -71,9 +71,9 @@ var purchase = function(){
 		purchases.push(customerPurchase);
 		newFunction();
 	})
-}
-        ;
-        
+};
+
+console.log(purchases)        
 //  purchase();   
 function newFunction(){    
         //the variable established above is pushed to the productPurchased array 
@@ -114,3 +114,8 @@ function newFunction(){
 	}
 
 ;
+
+// console.log(purchase[0].item_id)
+// console.log(purchases[0].itemID)
+
+	
