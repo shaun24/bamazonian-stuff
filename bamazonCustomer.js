@@ -87,18 +87,18 @@ console.log(purchases[0].itemID)
 				if(err) throw (err, 'That item ID does not exist');
 				
 
-				if(res[0].stockQ < purchases[0].stockQ){
+				if(res[0].stock_quantity < purchases[0].stock_quantity){
 					console.log('item not available');
 					connection.end();
-				} else if(res[0].stockQ >= purchases[0].stockQ){
+				} else if(res[0].stock_quantity >= purchases[0].stock_quantity){
 					console.log('');
-					console.log(purchases[0].stockQ + ' items purchased');
+					console.log(purchases[0].stock_quantity + ' items purchased');
 					console.log(res[0].product_name + ' ' + res[0].price);
 
 
-					var saleTotal = res[0].price * purchases[0].stockQ;
+					var saleTotal = res[0].price * purchases[0].stock_quantity;
 					console.log('Total: ' + saleTotal);
-					newQuantity = res[0].stockQ - purchases[0].stockQ;
+					newQuantity = res[0].stock_quantity - purchases[0].stock_quantity;
 			
 		
 					connection.query("UPDATE products SET stock_quantity = " + newQuantity +" WHERE Item_id = " + purchases[0].item_id, function(err, res){
