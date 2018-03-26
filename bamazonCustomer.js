@@ -43,15 +43,15 @@ connection.query('SELECT item_id, product_name, price, stock_quantity FROM produ
 	}
 	console.log(table.toString());
 	
-	purchase();
+	// purchase();
 	// connection.end();
 	// newFunction();
 
 });
 // }
 //the purchase function so the user can purchase one of the items listed above
-var purchase = function(){
-	console.log("purchase");
+// var purchase = function(){
+	// console.log("purchase");
 	// var productInfo =
 	 inquirer.prompt([
             {  
@@ -71,7 +71,7 @@ var purchase = function(){
                 Quantity: res.stockQ
 		}
 		purchases.push(customerPurchase);
-		// newFunction();
+		newFunction();
 	})
 // };
 
@@ -87,18 +87,18 @@ console.log(purchases[0].itemID)
 				if(err) throw (err, 'That item ID does not exist');
 				
 
-				if(res[0].stock_quantity < purchases[0].stock_quantity){
+				if(res[0].stockQ < purchases[0].stockQ){
 					console.log('item not available');
 					connection.end();
-				} else if(res[0].stock_quantity >= purchases[0].stock_quantity){
+				} else if(res[0].stockQ >= purchases[0].stockQ){
 					console.log('');
-					console.log(purchases[0].stock_quantity + ' items purchased');
+					console.log(purchases[0].stockQ + ' items purchased');
 					console.log(res[0].product_name + ' ' + res[0].price);
 
 
-					var saleTotal = res[0].price * purchases[0].stock_quantity;
+					var saleTotal = res[0].price * purchases[0].stockQ;
 					console.log('Total: ' + saleTotal);
-					newQuantity = res[0].stock_quantity - purchases[0].stock_quantity;
+					newQuantity = res[0].stockQ - purchases[0].stockQ;
 			
 		
 					connection.query("UPDATE products SET stock_quantity = " + newQuantity +" WHERE Item_id = " + purchases[0].item_id, function(err, res){
@@ -114,9 +114,9 @@ console.log(purchases[0].itemID)
 				};
 
 		})
-	}
+	};
 // newFunction();
-};
+
 // newFunction();
 // console.log(purchase[0].item_id)
 // console.log(purchases[0].itemID)
