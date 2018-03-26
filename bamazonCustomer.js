@@ -80,34 +80,35 @@ connection.query('SELECT item_id, product_name, price, stock_quantity FROM produ
 function newFunction(){    
         //the variable established above is pushed to the productPurchased array 
 		// purchases.push(customerPurchase);
-console.log(purchases.itemID)
-console.log(purchases[0].itemID)
+// console.log(purchases.itemID)
+// console.log(purchases[0].itemID)
 		//connects to mysql and selects the item the user selected above based on the item id number entered
 		connection.query('SELECT * FROM products WHERE item_id=?', purchases[0].itemID, function(err, res){
-				if(err) throw (err, 'That item ID does not exist');
-				
-
-				if(res[0].stock_quantity < purchases[0].stock_quantity){
+				// if(err) throw (err, 'That item ID does not exist');
+				// console.log(res[0].price)
+				// console.log(purchases[0])
+				if(res[0].stock_quantity < purchases[0].Quantity){
 					console.log('item not available');
 					connection.end();
-				} else if(res[0].stock_quantity >= purchases[0].stock_quantity){
+				} else {
 					console.log('');
-					console.log(purchases[0].stock_quantity + ' items purchased');
+					console.log(purchases[0].Quantity + ' items purchased');
 					console.log(res[0].product_name + ' ' + res[0].price);
 
 
-					var saleTotal = res[0].price * purchases[0].stock_quantity;
+					var saleTotal = res[0].price * purchases[0].Quantity;
 					console.log('Total: ' + saleTotal);
-					newQuantity = res[0].stock_quantity - purchases[0].stock_quantity;
+					newQuantity = res[0].stock_quantity - purchases[0].Quantity;
 			
-		
-					connection.query("UPDATE products SET stock_quantity = " + newQuantity +" WHERE Item_id = " + purchases[0].item_id, function(err, res){
+					console.log(purchases[0].itemID)
+					console.log(newQuantity)
+					connection.query("UPDATE products SET stock_quantity = " + newQuantity +" WHERE item_id = " + purchases[0].itemID, function(err, res){
 						if(err) throw err;
 						console.log('Problem ', err);
 						console.log('');
 						console.log('Your order has been processed.  Thank you for shopping with us!');
 						console.log('');
-
+						console.log(newQuantity)
 						connection.end();
 					})
 
